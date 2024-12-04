@@ -9,6 +9,7 @@ const App = () => {
   const [getSignatureData, setSignature] = useState<(() => string) | null>(
     null
   ); // Store the function to get signature data
+  const [dogName, setDogName] = useState(""); // State for dog name
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -24,7 +25,7 @@ const App = () => {
     try {
       const { error } = await supabase
         .from("waver_entries") // Ensure this matches your actual table name
-        .insert([{ name, signature }]);
+        .insert([{ name, signature, dog_name: dogName }]); // Insert the form data
       if (error) {
         throw error;
       }
@@ -50,6 +51,23 @@ const App = () => {
           </h1>
           <div className="mb-4">
             <label
+              htmlFor="dogName"
+              className="block text-sm font-bold text-gray-700 pb-2"
+            >
+              Dog Name
+            </label>
+            <input
+              type="text"
+              id="dogName"
+              value={dogName}
+              onChange={(e) => setDogName(e.target.value)}
+              required
+              className="block w-full px-4 py-2 bg-purple-50 rounded-xl shadow-sm focus:ring-purple-300"
+              placeholder="Enter your dog's name"
+            />
+          </div>
+          <div className="mb-4">
+            <label
               htmlFor="name"
               className="block text-sm font-bold text-gray-700 pb-2"
             >
@@ -65,6 +83,7 @@ const App = () => {
               placeholder="Enter your name"
             />
           </div>
+
           <div className="mb-4">
             <label
               htmlFor="signature"
