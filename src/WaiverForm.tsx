@@ -1,13 +1,17 @@
+// WaiverForm.tsx
 import React, { useState } from "react";
 import { supabase } from "./supabaseClient";
 import SignaturePadComponent from "./SignaturePad";
 import FormInput from "./FormInput";
 
-const WaiverForm: React.FC = () => {
+interface WaiverFormProps {
+  onSubmitSuccess: () => void;
+}
+
+const WaiverForm: React.FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
   const [name, setName] = useState("");
   const [dogName, setDogName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
   const [getSignatureData, setSignature] = useState<(() => string) | null>(
     null
   );
@@ -27,11 +31,8 @@ const WaiverForm: React.FC = () => {
       const { error } = await supabase
         .from("waver_entries")
         .insert([{ name, signature, dog_name: dogName }]);
-      if (error) {
-        throw error;
-      }
-      alert("Form submitted successfully!");
-      setSubmitted(true);
+      if (error) throw error;
+      onSubmitSuccess(); // Call the callback function
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Error submitting the form.");
@@ -52,7 +53,6 @@ const WaiverForm: React.FC = () => {
         onChange={(e) => setDogName(e.target.value)}
         placeholder="Enter your dog's name"
         required
-        disabled={submitted}
       />
       <FormInput
         id="name"
@@ -61,7 +61,6 @@ const WaiverForm: React.FC = () => {
         onChange={(e) => setName(e.target.value)}
         placeholder="Enter your name"
         required
-        disabled={submitted}
       />
       <div className="mb-4">
         <label
@@ -70,18 +69,13 @@ const WaiverForm: React.FC = () => {
         >
           Signature
         </label>
-        <SignaturePadComponent
-          setSignature={setSignature}
-          disabled={submitted}
-        />
+        <SignaturePadComponent setSignature={setSignature} />
       </div>
       <button
         type="submit"
-        disabled={loading || submitted}
-        className={`w-full px-4 py-2 text-white font-bold bg-purple-600 rounded-full shadow-lg ${
-          loading || submitted
-            ? "opacity-50 cursor-not-allowed"
-            : "transition focus:ring-4 focus:ring-purple-300 hover:bg-purple-700"
+        disabled={loading}
+        className={`w-full px-4 py-2 text-white font-bold bg-purple-600 rounded-full shadow-lg transition focus:ring-4 focus:ring-purple-300 ${
+          loading ? "opacity-50 cursor-not-allowed" : "hover:bg-purple-700"
         }`}
       >
         {loading ? "Submitting..." : "Submit"}
