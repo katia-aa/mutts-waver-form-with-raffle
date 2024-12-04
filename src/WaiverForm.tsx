@@ -7,6 +7,7 @@ const WaiverForm: React.FC = () => {
   const [name, setName] = useState("");
   const [dogName, setDogName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [getSignatureData, setSignature] = useState<(() => string) | null>(
     null
   );
@@ -30,6 +31,7 @@ const WaiverForm: React.FC = () => {
         throw error;
       }
       alert("Form submitted successfully!");
+      setSubmitted(true);
     } catch (error) {
       console.error("Error submitting form:", error);
       alert("Error submitting the form.");
@@ -50,6 +52,7 @@ const WaiverForm: React.FC = () => {
         onChange={(e) => setDogName(e.target.value)}
         placeholder="Enter your dog's name"
         required
+        disabled={submitted}
       />
       <FormInput
         id="name"
@@ -58,6 +61,7 @@ const WaiverForm: React.FC = () => {
         onChange={(e) => setName(e.target.value)}
         placeholder="Enter your name"
         required
+        disabled={submitted}
       />
       <div className="mb-4">
         <label
@@ -66,13 +70,18 @@ const WaiverForm: React.FC = () => {
         >
           Signature
         </label>
-        <SignaturePadComponent setSignature={setSignature} />
+        <SignaturePadComponent
+          setSignature={setSignature}
+          disabled={submitted}
+        />
       </div>
       <button
         type="submit"
-        disabled={loading}
-        className={`w-full px-4 py-2 text-white font-bold bg-purple-600 rounded-full shadow-lg transition focus:ring-4 focus:ring-purple-300 ${
-          loading ? "opacity-50 cursor-not-allowed" : "hover:bg-purple-700"
+        disabled={loading || submitted}
+        className={`w-full px-4 py-2 text-white font-bold bg-purple-600 rounded-full shadow-lg ${
+          loading || submitted
+            ? "opacity-50 cursor-not-allowed"
+            : "transition focus:ring-4 focus:ring-purple-300 hover:bg-purple-700"
         }`}
       >
         {loading ? "Submitting..." : "Submit"}

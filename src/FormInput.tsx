@@ -7,6 +7,7 @@ interface FormInputProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
   required?: boolean;
+  disabled?: boolean;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -16,6 +17,7 @@ const FormInput: React.FC<FormInputProps> = ({
   onChange,
   placeholder,
   required = false,
+  disabled = false,
 }) => {
   return (
     <div className="mb-4">
@@ -26,6 +28,7 @@ const FormInput: React.FC<FormInputProps> = ({
         {label}
       </label>
       <input
+        disabled={disabled}
         type="text"
         id={id}
         value={value}

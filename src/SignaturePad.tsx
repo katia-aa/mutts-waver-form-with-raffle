@@ -1,8 +1,16 @@
-import React, { useRef, useEffect, useCallback, useState } from "react";
+import { useRef, useEffect, useCallback, useState } from "react";
 import SignaturePad from "signature_pad";
 
-const SignaturePadComponent = ({ setSignature }) => {
-  const canvasRef = useRef(null);
+interface SignaturePadComponentProps {
+  setSignature: (signature: () => string | null) => void;
+  disabled: boolean;
+}
+
+const SignaturePadComponent = ({
+  setSignature,
+  disabled,
+}: SignaturePadComponentProps) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const signaturePadRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
 
@@ -68,11 +76,13 @@ const SignaturePadComponent = ({ setSignature }) => {
         onFocus={handleFocus}
         onBlur={handleBlur}
         tabIndex={0} // Make canvas focusable
+        style={{ pointerEvents: disabled ? "none" : "auto" }}
       />
       <button
         type="button"
         onClick={handleClear}
         className="absolute top-2 right-2 px-4 py-2 text-sm text-white font-bold bg-purple-600 rounded-full shadow focus:ring-2 focus:ring-purple-300 transition hover:bg-purple-700 border rounded-lg"
+        disabled={disabled}
       >
         Clear
       </button>
