@@ -60,7 +60,7 @@ git init
 git add .
 git commit -m "Initial commit"
 git branch -M main
-git remote add origin https://github.com/your-username/my-spa.git
+git remote add origin https://github.com/your-username/mutts-waver-form-with-raffle.git
 git push -u origin main
 ```
 
