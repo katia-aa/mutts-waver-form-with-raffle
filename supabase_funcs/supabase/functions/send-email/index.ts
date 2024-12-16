@@ -21,6 +21,7 @@ serve(async (req) => {
     console.log("Received payload:", payload);
 
     const { email, name } = payload;
+    const SENDER_EMAIL = Deno.env.get("TEST_EMAIL"); // FIXME  use sender email 
 
     // Validate payload
     if (!email || !name) {
@@ -32,13 +33,13 @@ serve(async (req) => {
 
     // Prepare email data for Brevo
     const emailData = {
-      sender: { email: "katia.amir@gmail.com", name: "Mutts In The 6ix" },
+      sender: { email: SENDER_EMAIL, name: "Mutts In The 6ix" }, 
       to: [{ email, name }],
       subject: "Thank You!",
       htmlContent: `<p>Hi <span style="color:lightpurple">${name}</span>, thank you for signing the Mutts In The 6ix waiver form!</p>`,
     };
 
-    console.log("Email data prepared.");
+    console.log("Email data prepared.", emailData);
 
     // Fetch Brevo API key securely from environment variables
     const BREVO_API_KEY = Deno.env.get("BREVO_API_KEY");
@@ -61,7 +62,7 @@ serve(async (req) => {
       body: JSON.stringify(emailData),
     });
 
-    console.log(`Brevo API response status: ${response.status}`);
+    console.log(`Brevo API response status: ${response.status}`, response);
 
     // Log response data in case of failure
     const responseData = await response.text();
@@ -90,7 +91,5 @@ serve(async (req) => {
     --data '{"name":"EMAILTEST","email":"email@test.com"}'
 
 */
-/* 
-TOOD:
-- [ ] Generate new Brevo api key
-*/
+
+
