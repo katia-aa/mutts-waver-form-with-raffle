@@ -84,7 +84,7 @@ const SignaturePadComponent = ({
         className="absolute top-2 right-2 px-4 py-2 text-sm text-white font-bold bg-purple-600 rounded-full shadow focus:ring-2 focus:ring-purple-300 transition hover:bg-purple-700 border rounded-lg"
         disabled={disabled}
       >
-        Clear
+        CLEAR
       </button>
     </div>
   );

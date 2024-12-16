@@ -32,7 +32,7 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
 
     try {
       const { error } = await supabase
-        .from("waver_entries")
+        .from("waiver_entries_test")
         .insert([{ name, signature: 'Fix me! need a short string.', dog_name: dogName, email }]);
       if (error) throw error;
       onSubmitSuccess(); // Call the callback function
@@ -46,8 +46,8 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
 
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h1 className="text-2xl font-bold text-center mb-6 mt-6">
+    <form onSubmit={handleSubmit} className="border-4 border-black p-[24px] rounded-[32px]">
+      <h1 className="text-2xl font-bold text-center mb-6">
         Submit Your Entry
       </h1>
        <FormInput
@@ -85,7 +85,7 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
       <button
         type="submit"
         disabled={loading}
-        className={`w-full px-4 py-2 text-white font-bold bg-purple-600 rounded-full shadow-lg transition focus:ring-4 focus:ring-purple-300 ${
+        className={`w-full text-[1.8rem] px-4 py-2 text-white font-bold bg-purple-600 rounded-full shadow-lg transition focus:ring-4 focus:ring-purple-300 ${
           loading ? "opacity-50 cursor-not-allowed" : "hover:bg-purple-700"
         }`}
       >
