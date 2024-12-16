@@ -1,7 +1,6 @@
-import React from "react";
+import { FC } from "react";
 
-const LiabilityFormText: React.FC = () => {
-  return (
+const LiabilityFormText: FC = () => (
     <>
       <h2 className="text-2xl font-bold mb-4">
         RELEASE OF LIABILITY, WAIVER OF CLAIMS, ASSUMPTION OF RISKS, AND
@@ -167,6 +166,5 @@ const LiabilityFormText: React.FC = () => {
       </p>
     </>
   );
-};
 
 export default LiabilityFormText;
