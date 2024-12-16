@@ -1,0 +1,38 @@
+
+## Version Release 
+*V1* = Waiver with email 
+*V2* = Waiver table (waver_entries) [for Admin]
+*V3* = Raffle entry: Ask user to enter raffle, store user answer, allow admin to randomly choose a winner from users that said yes to be part of raffle, send email to the winner
+*V4(NOT SURE)* = Create a dashboard to see users that have entered the raffle and update the winner when raffle is closed?
+ 
+
+## TOOD for V1:
+- [ ] Generate new Brevo api key
+- [ ] Restrict Edge function (!public)
+- [ ] Dog name should be optional
+- [ ] Capitalize email and name Labels 
+- [ ] Deploy GH pages via GH action
+- [ ] Move to Mutts in the 6ix Github and deploy to GH pages (END of V1)
+
+
+
+## TOOD for V2:
+- [ ] Create a route /waiver_submissions
+- [ ] Create UI for table 
+- [ ] Display waver_entries data into it
+- [ ] Restrict usage to Admin only [investigation]
+- [ ] Allow to download data to spreadsheet (CSV?) to admin only [investigation]
+
+
+
+## TOOD for V3:
+- [ ] Ask user to enter raffle [Investigation]
+- [ ] Store user answer (update or create new table?) [Investigation]
+- [ ] Allow Admin to close the raffle and choose the winner
+- [ ] Send congradulations email to winner
+
+
+
+## Dev TODOs:
+- [ ] Write tests: send-email, WaiverForm, Make it part of CI 
+- [ ] Store legal text in Supabase

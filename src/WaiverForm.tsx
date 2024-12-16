@@ -52,7 +52,7 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
       </h1>
        <FormInput
         id="name"
-        label="name"
+        label="Name*"
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="Enter your name"
@@ -64,11 +64,10 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
         value={dogName}
         onChange={(e) => setDogName(e.target.value)}
         placeholder="Enter your dog's name"
-        required
       />
        <FormInput
         id="email"
-        label="email"
+        label="Email*"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="Enter your email"
@@ -79,7 +78,7 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
           htmlFor="signature"
           className="block text-sm font-bold text-gray-700 pb-2"
         >
-          Signature
+          Signature*
         </label> 
         <SignaturePadComponent setSignature={setSignature} />
       </div>
