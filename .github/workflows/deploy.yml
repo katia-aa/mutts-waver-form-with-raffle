@@ -3,11 +3,16 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main  # Replace 'main' with your branch name if different
+      - main # Replace 'main' with your branch name if different
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
+    permissions: # Add this block to ensure correct permissions
+      contents: write
+      pages: write
+      id-token: write
 
     steps:
       - name: Checkout Code
@@ -16,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 'v21.7.3' # Replace with the version your project requires
+          node-version: '21.7.3' # Replace with the version your project requires
 
       - name: Install Dependencies
         run: npm install
