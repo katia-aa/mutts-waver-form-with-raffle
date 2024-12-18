@@ -50,7 +50,7 @@ const SignaturePadComponent = ({
       () => () =>
         signaturePadRef.current.isEmpty()
           ? null
-          : signaturePadRef.current.toDataURL("image/png")
+          : signaturePadRef.current.toDataURL("image/svg+xml")
     );
   }, [setSignature]);
 

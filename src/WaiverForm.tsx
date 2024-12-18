@@ -40,7 +40,7 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
     try {
       const { error } = await supabase
         .from("waiver_entries_test")
-        .insert([{ name, signature: "Fix me! need a short string.", dog_name: dogName, email }]);
+        .insert([{ name, signature, dog_name: dogName, email }]);
       if (error) throw error;
       onSubmitSuccess(); // Call the callback function
     } catch (error) {
