@@ -5,7 +5,7 @@ import SignaturePadComponent from "./SignaturePad";
 import FormInput from "./FormInput";
 
 interface WaiverFormProps {
-  onSubmitSuccess: (signature: () => string | null) => void
+  onSubmitSuccess: () => void
 }
 
 
