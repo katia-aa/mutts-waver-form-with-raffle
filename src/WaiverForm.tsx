@@ -5,10 +5,8 @@ import SignaturePadComponent from "./SignaturePad";
 import FormInput from "./FormInput";
 
 interface WaiverFormProps {
-  onSubmitSuccess: () => void
+  onSubmitSuccess: () => void;
 }
-
-
 
 const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
   const [name, setName] = useState("");
@@ -16,6 +14,11 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
   const [dogName, setDogName] = useState("");
   const [loading, setLoading] = useState(false);
   const [getSignatureData, setSignature] = useState<() => void>();
+
+  const validateEmail = (email: string): boolean => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -28,10 +31,16 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
       return;
     }
 
+    if (!validateEmail(email)) {
+      alert("Please enter a valid email address.");
+      setLoading(false);
+      return;
+    }
+
     try {
       const { error } = await supabase
         .from("waiver_entries_test")
-        .insert([{ name, signature: 'Fix me! need a short string.', dog_name: dogName, email }]);
+        .insert([{ name, signature: "Fix me! need a short string.", dog_name: dogName, email }]);
       if (error) throw error;
       onSubmitSuccess(); // Call the callback function
     } catch (error) {
@@ -42,13 +51,10 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
     }
   };
 
-
   return (
     <form onSubmit={handleSubmit} className="border-4 border-black p-[24px] rounded-[32px]">
-      <h1 className="text-2xl font-bold text-center mb-6">
-        Submit Your Entry
-      </h1>
-       <FormInput
+      <h1 className="text-2xl font-bold text-center mb-6">Submit Your Entry</h1>
+      <FormInput
         id="name"
         label="Name*"
         value={name}
@@ -63,7 +69,7 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
         onChange={(e) => setDogName(e.target.value)}
         placeholder="Enter your dog's name"
       />
-       <FormInput
+      <FormInput
         id="email"
         label="Email*"
         value={email}
@@ -77,7 +83,7 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
           className="block text-sm font-bold text-gray-700 pb-2"
         >
           Signature*
-        </label> 
+        </label>
         <SignaturePadComponent setSignature={setSignature} disabled={false} />
       </div>
       <button
