@@ -5,19 +5,17 @@ import SignaturePadComponent from "./SignaturePad";
 import FormInput from "./FormInput";
 
 interface WaiverFormProps {
-  onSubmitSuccess: () => void;
+  onSubmitSuccess: (signature: () => string | null) => void
 }
 
-type FuncORNull = (() => string) | null;
+
 
 const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [dogName, setDogName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [getSignatureData, setSignature] = useState<FuncORNull>(
-    null
-  );
+  const [getSignatureData, setSignature] = useState<() => void>();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -80,7 +78,7 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
         >
           Signature*
         </label> 
-        <SignaturePadComponent setSignature={setSignature} />
+        <SignaturePadComponent setSignature={setSignature} disabled={false} />
       </div>
       <button
         type="submit"

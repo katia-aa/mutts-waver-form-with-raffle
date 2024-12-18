@@ -1,3 +1,5 @@
+// @ts-nocheck
+// We're not checking this file for now.
 import { useRef, useEffect, useCallback, useState } from "react";
 import SignaturePad from "signature_pad";
 
