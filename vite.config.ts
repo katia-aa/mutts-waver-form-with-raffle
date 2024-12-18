@@ -2,10 +2,12 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 export default defineConfig({
+  base: "/mutts-waver-form-with-raffle/", // Set correct base path
   plugins: [react()],
-  base: "./", 
   build: {
-    outDir: 'dist', // Output directory for build
+    outDir: "dist", // Output directory
+    rollupOptions: {
+      input: "index.html", // Ensure the input HTML file is correct
+    },
   },
-
 });
