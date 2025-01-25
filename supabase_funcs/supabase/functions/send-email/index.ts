@@ -21,7 +21,7 @@ serve(async (req) => {
     console.log("Received payload:", payload);
 
     const { email, name } = payload;
-    const SENDER_EMAIL = Deno.env.get("TEST_EMAIL"); // FIXME  use sender email 
+    const SENDER_EMAIL = Deno.env.get("SENDER_EMAIL"); // FIXME  use sender email
 
     // Validate payload
     if (!email || !name) {
@@ -33,10 +33,10 @@ serve(async (req) => {
 
     // Prepare email data for Brevo
     const emailData = {
-      sender: { email: SENDER_EMAIL, name: "Mutts In The 6ix" }, 
+      sender: { email: SENDER_EMAIL, name: "Mutts In The 6ix" },
       to: [{ email, name }],
       subject: "Thank You!",
-      htmlContent: `<p>Hi <span style="color:lightpurple">${name}</span>, thank you for signing the Mutts In The 6ix waiver form!</p>`,
+      htmlContent: `<p>Hi <span style="color:lightpurple">${name}</span>, thank you for signing the Mutts In The 6ix waiver form! We hope you and your dog have a great time at our event!</p>`,
     };
 
     console.log("Email data prepared.", emailData);
@@ -47,7 +47,9 @@ serve(async (req) => {
 
     if (!BREVO_API_KEY) {
       console.error("Missing Brevo API Key.");
-      return new Response("Internal Server Error: Missing API Key", { status: 500 });
+      return new Response("Internal Server Error: Missing API Key", {
+        status: 500,
+      });
     }
 
     console.log("Sending email via Brevo API...");
@@ -69,7 +71,9 @@ serve(async (req) => {
 
     if (!response.ok) {
       console.error("Brevo API Error:", responseData);
-      return new Response(`Failed to send email: ${responseData}`, { status: 500 });
+      return new Response(`Failed to send email: ${responseData}`, {
+        status: 500,
+      });
     }
 
     console.log("Email sent successfully!");
@@ -79,7 +83,3 @@ serve(async (req) => {
     return new Response("Internal Server Error", { status: 500 });
   }
 });
-
-
-
-

@@ -39,7 +39,7 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
 
     try {
       const { error } = await supabase
-        .from("waiver_entries_test")
+        .from("waiver_entries")
         .insert([{ name, signature, dog_name: dogName, email }]);
       if (error) throw error;
       onSubmitSuccess(); // Call the callback function
@@ -52,7 +52,10 @@ const WaiverForm: FC<WaiverFormProps> = ({ onSubmitSuccess }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border-4 border-black p-[24px] rounded-[32px]">
+    <form
+      onSubmit={handleSubmit}
+      className="border-4 border-black p-[24px] rounded-[32px]"
+    >
       <h1 className="text-2xl font-bold text-center mb-6">Submit Your Entry</h1>
       <FormInput
         id="name"
